@@ -1,0 +1,7 @@
+@media print{
+	*{
+		background: transparent !important;
+		color: #fff !important;
+		font-size: 28px !important;
+	}
+}
