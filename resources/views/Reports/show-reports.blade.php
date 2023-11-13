@@ -83,7 +83,7 @@
                                                 @if($data['id'] == 2 || $data['id'] == 11)
                                                 <td style="width: 630px !important;">
                                                     <div class="report_filter_dropdown" style="width: 190px;display: inline;">
-                                                        <select name="quality" id="quality-dropdown-id" class="js-example-basic-single btn btn-primary dropdown-toggle select2" style="color: black !important;width: auto;display: inline-block;">
+                                                        <select name="quality" id="quality-dropdown-id" class="js-example-basic-single btn btn-primary dropdown-toggle quality select2" style="color: black !important;width: auto;display: inline-block;">
                                                             <option value="0">
                                                                 <i style="color: #808080;margin-right: 1%;margin-left: 2%;" class="fa-search fa"></i>
                                                                 Quality
@@ -98,7 +98,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="report_filter_dropdown" style="width: 190px;display: inline;">
-                                                        <select name="design" id="design-dropdown-id" class=" quality" style="color: black !important;width: auto;display: inline-block;">
+                                                        <select name="design" id="design-dropdown-id" class="js-example-basic-single btn btn-primary dropdown-toggle design select2 " style="color: black !important;width: auto;display: inline-block;">
                                                             <option value="0"> <i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'></i> Design</option>
                                                             <!-- @isset($filterDropdowns['design_dropdown'])
                                                             @foreach($filterDropdowns['design_dropdown'] as $design_array)
@@ -112,7 +112,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="report_filter_dropdown" style="width: 190px;display: inline;">
-                                                        <select name="shade" id="shade-dropdown-id" class=" quality" style="color: black !important;width: auto;display: inline-block;">
+                                                        <select name="shade" id="shade-dropdown-id" class="js-example-basic-single btn btn-primary dropdown-toggle shade select2" style="color: black !important;width: auto;display: inline-block;">
                                                             <option value="0"> <i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'></i> Shade</option>
                                                             <!-- @isset($filterDropdowns['shade_dropdown'])
                                                             @foreach($filterDropdowns['shade_dropdown'] as $shade_array)
@@ -239,10 +239,10 @@
 
 <script type="text/javascript">
     $(() => {
-        $('#quality-dropdown-id').ready(function() {
-            $('#quality-dropdown-id').select2({
+        $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.quality.select2').ready(function() {
+            $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.quality.select2').select2({
                 ajax: {
-                    url: "{{ route('get-product-dropdown') }}",
+                    url: "{{ route('get-quality-dropdown') }}",
                     data: function(params) {
                         var query = {
                             search: params.term,
@@ -255,13 +255,13 @@
             })
         });
 
-        $('#design-dropdown-id').ready(function() {
-            $('#design-dropdown-id').select2({
+        $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.design.select2').ready(function() {
+            $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.design.select2').select2({
                 ajax: {
-                    url: "{{ route('get-product-dropdown') }}",
+                    url: "{{ route('get-design-dropdown') }}",
                     data: function(params) {
                         var query = {
-                            design_search: params.term,
+                            search: params.term,
                         }
                         console.log('query - ', query);
                         return query;
@@ -270,13 +270,13 @@
             })
         });
 
-        $('#shade-dropdown-id').ready(function() {
-            $('#shade-dropdown-id').select2({
+        $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.shade.select2').ready(function() {
+            $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.shade.select2').select2({
                 ajax: {
-                    url: "{{ route('get-product-dropdown') }}",
+                    url: "{{ route('get-shade-dropdown') }}",
                     data: function(params) {
                         var query = {
-                            shade_search: params.term,
+                            search: params.term,
                         }
                         console.log('query - ', query);
                         return query;

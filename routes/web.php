@@ -82,32 +82,47 @@ Route::group(['middleware' => ['ip.whitelist.check']], function () {
                 Route::post('/actions/add-whitelisted', 'CustomConfigController@add_whitelisted_ips')->name('add_whitelisted_ips');
             });
 
-            Route::get('get-product-dropdown', function () {
-
+            Route::get('get-quality-dropdown', function () {
                 $data = [];
                 $search = '';
-                $product_masters = ProductMaster::query();
+                $product_masters = ProductMaster::select('quality as id', 'quality as text');
 
-                dd(request()->all());
-                if (isset(request()->quality_search)) {
-                    $search = request()->quality_search;
-                    $product_masters->select('quality as id', 'quality as text');
+                $search = request()->search;
+                if (isset($search)) {
                     $product_masters->where('quality', "LIKE", "%$search%");
                 }
-                if (isset(request()->design_search)) {
-                    $search = request()->design_search;
-                    $product_masters->select('design_name as id', 'design_name as text');
+
+                $data['results'] = $product_masters->distinct()->get()->toArray();
+                return response()->json($data);
+            })->name('get-quality-dropdown');
+
+            Route::get('get-design-dropdown', function () {
+                $data = [];
+                $search = '';
+                $product_masters = ProductMaster::select('design_name as id', 'design_name as text');
+
+                $search = request()->search;
+                if (isset($search)) {
                     $product_masters->where('design_name', "LIKE", "%$search%");
                 }
-                if (isset(request()->shade_search)) {
-                    $search = request()->shade_search;
-                    $product_masters->select('shade as id', 'shade as text');
+
+                $data['results'] = $product_masters->distinct()->get()->toArray();
+                return response()->json($data);
+            })->name('get-design-dropdown');
+
+            Route::get('get-shade-dropdown', function () {
+                $data = [];
+                $search = '';
+                $product_masters = ProductMaster::select('shade as id', 'shade as text');
+
+                $search = request()->search;
+                if (isset($search)) {
                     $product_masters->where('shade', "LIKE", "%$search%");
                 }
 
                 $data['results'] = $product_masters->distinct()->get()->toArray();
                 return response()->json($data);
-            })->name('get-product-dropdown');
+            })->name('get-shade-dropdown');
         });
         Route::group(array('namespace' => 'CRON'), function () {
             # Cron [Import procedures]

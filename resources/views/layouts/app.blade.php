@@ -60,13 +60,6 @@
         }
     </style>
     <script src="{{ asset('public/default/js/jquery.js') }}"></script>
-
-    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-
-
-
-
     <link href="{{ asset('public/default/font-awesome-css/webfonts/fa-solid-900.ttf') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/default/font-awesome-css/css/all.css') }}" rel="stylesheet" type="text/css" />
 

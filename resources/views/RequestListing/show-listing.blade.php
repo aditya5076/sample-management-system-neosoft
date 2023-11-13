@@ -73,41 +73,41 @@
 
                         <div class="col-md-2">
                             <!-- <input name="quality_search" style="text-indent: 50px;" class="fa" placeholder="Quality" type="text" id="quality_search" /> -->
-                            <select name="quality_search" id="quality_search" class="js-example-basic-single btn btn-primary dropdown-toggle" style="color: black !important;width: auto;display: inline-block;">
+                            <select name="quality_search" id="quality_search" class="js-example-basic-single btn btn-primary dropdown-toggle quality select2" style="color: black !important;width: auto;display: inline-block;">
                                 <option value="0"> <i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa fa-search' /> Quality</option>
-                                @isset($filterDropdowns['quality_dropdown'])
+                                <!-- @isset($filterDropdowns['quality_dropdown'])
                                 @foreach($filterDropdowns['quality_dropdown'] as $quality_array)
                                 @foreach($quality_array as $quality)
                                 <option value="{{ $quality }}" {{(isset($filters['quality_search'])&&$quality==$filters['quality_search'])?'selected':''}}>{{ $quality }}</option>
                                 @endforeach
                                 @endforeach
-                                @endisset
+                                @endisset -->
                             </select>
                         </div>
                         <div class="col-md-2">
                             <!-- <input name="design_search" style="text-indent: 50px;" class="fa" placeholder="Design" type="text" id="design_search" /> -->
-                            <select name="design_search" id="design_search" class="js-example-basic-single btn btn-primary dropdown-toggle" style="color: black !important;width: auto;display: inline-block;">
-                                <option value="0"> &lt;i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'>&lt;/i> Design</option>
-                                @isset($filterDropdowns['design_dropdown'])
+                            <select name="design_search" id="design_search" class="js-example-basic-single btn btn-primary dropdown-toggle  design select2" style="color: black !important;width: auto;display: inline-block;">
+                                <option value="0"> <i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'></i> Design</option>
+                                <!-- @isset($filterDropdowns['design_dropdown'])
                                 @foreach($filterDropdowns['design_dropdown'] as $design_array)
                                 @foreach($design_array as $design)
                                 <option value="{{ $design }}" {{(isset($filters['design_search'])&&$design==$filters['design_search'])?'selected':''}}>{{ $design }}</option>
                                 @endforeach
                                 @endforeach
-                                @endisset
+                                @endisset -->
                             </select>
                         </div>
                         <div class="col-md-2">
                             <!-- <input name="shade_search" style="text-indent: 50px;" class="fa" placeholder="Shade" type="text" id="shade_search" /> -->
-                            <select name="shade_search" id="shade_search" class="js-example-basic-single btn btn-primary dropdown-toggle" style="color: black !important;width: auto;display: inline-block;">
-                                <option value="0"> &lt;i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'>&lt;/i> Shade</option>
-                                @isset($filterDropdowns['shade_dropdown'])
+                            <select name="shade_search" id="shade_search" class="js-example-basic-single btn btn-primary dropdown-toggle shade select2" style="color: black !important;width: auto;display: inline-block;">
+                                <option value="0"> <i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'></i> Shade</option>
+                                <!-- @isset($filterDropdowns['shade_dropdown'])
                                 @foreach($filterDropdowns['shade_dropdown'] as $shade_array)
                                 @foreach($shade_array as $shade)
                                 <option value="{{ $shade }}" {{(isset($filters['shade_search'])&&$shade==$filters['shade_search'])?'selected':''}}>{{ $shade }}</option>
                                 @endforeach
                                 @endforeach
-                                @endisset
+                                @endisset -->
                             </select>
                         </div>
                         <div class="col-md-2"><i class="fa-search fa" style="position: absolute;left: 44px; top: 12px;color: #808080;"></i>
@@ -152,9 +152,9 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <!-- <input name="quality_search" style="text-indent: 50px;" class="fa" placeholder="Quality" type="text" id="quality_search" /> -->
-                                <select name="quality_search" id="quality_search" class="js-example-basic-single btn btn-primary dropdown-toggle" style="color: black !important;width: auto;display: inline-block;">
-                                    <option value="0"> &lt;i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'>&lt;/i> Quality</option>
-                                    @isset($filterDropdowns['quality_dropdown'])
+                                <select name="quality_search" id="quality_search" class="js-example-basic-single btn btn-primary dropdown-toggle quality select2" style="color: black !important;width: auto;display: inline-block;">
+                                    <option value="0"> <i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'></i> Quality</option>
+                                    <!-- @isset($filterDropdowns['quality_dropdown'])
                                         @foreach($filterDropdowns['quality_dropdown'] as $quality_array)
                                             @foreach($quality_array as $quality)
                                                 <option value="{{ $quality }}"
@@ -164,33 +164,33 @@
             >{{ $quality }}</option>
             @endforeach
             @endforeach
-            @endisset
+            @endisset -->
             </select>
         </div>
         <div class="col-md-2">
             <!-- <input name="design_search" style="text-indent: 50px;" class="fa" placeholder="Design" type="text" id="design_search" /> -->
-            <select name="design_search" id="design_search" class="js-example-basic-single btn btn-primary dropdown-toggle" style="color: black !important;width: auto;display: inline-block;">
-                <option value="0"> &lt;i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'>&lt;/i> Design</option>
-                @isset($filterDropdowns['design_dropdown'])
+            <select name="design_search" id="design_search" class="js-example-basic-single btn btn-primary dropdown-toggle design select2" style="color: black !important;width: auto;display: inline-block;">
+                <option value="0"> <i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'></i> Design</option>
+                <!-- @isset($filterDropdowns['design_dropdown'])
                 @foreach($filterDropdowns['design_dropdown'] as $design_array)
                 @foreach($design_array as $design)
                 <option value="{{ $design }}" {{(isset($filters['design_search'])&&$design==$filters['design_search'])?'selected':''}}>{{ $design }}</option>
                 @endforeach
                 @endforeach
-                @endisset
+                @endisset -->
             </select>
         </div>
         <div class="col-md-2">
             <!-- <input name="shade_search" style="text-indent: 50px;" class="fa" placeholder="Shade" type="text" id="shade_search" /> -->
-            <select name="shade_search" id="shade_search" class="js-example-basic-single btn btn-primary dropdown-toggle" style="color: black !important;width: auto;display: inline-block;">
-                <option value="0"> &lt;i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'>&lt;/i> Shade</option>
-                @isset($filterDropdowns['shade_dropdown'])
+            <select name="shade_search" id="shade_search" class="js-example-basic-single btn btn-primary dropdown-toggle shade select2" style="color: black !important;width: auto;display: inline-block;">
+                <option value="0"> <i style="color: #808080;margin-right: 1%;margin-left: 2%;" class='fa-search fa'></i> Shade</option>
+                <!-- @isset($filterDropdowns['shade_dropdown'])
                 @foreach($filterDropdowns['shade_dropdown'] as $shade_array)
                 @foreach($shade_array as $shade)
                 <option value="{{ $shade }}" {{(isset($filters['shade_search'])&&$shade==$filters['shade_search'])?'selected':''}}>{{ $shade }}</option>
                 @endforeach
                 @endforeach
-                @endisset
+                @endisset -->
             </select>
         </div>
     </div>
@@ -253,6 +253,52 @@
     $(document).ready(function() {
 
 
+        // CODE TO SHOW THE LIST OF DROPDOWNS FROM SELECT 2 THROUGH AJAX - QUALITY
+        $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.quality.select2').ready(function() {
+            $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.quality.select2').select2({
+                ajax: {
+                    url: "{{ route('get-quality-dropdown') }}",
+                    data: function(params) {
+                        var query = {
+                            search: params.term,
+                            type: 'quality'
+                        }
+                        console.log('query - ', query);
+                        return query;
+                    }
+                }
+            })
+        });
+        // CODE TO SHOW THE LIST OF DROPDOWNS FROM SELECT 2 THROUGH AJAX - DESIGN
+        $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.design.select2').ready(function() {
+            $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.design.select2').select2({
+                ajax: {
+                    url: "{{ route('get-design-dropdown') }}",
+                    data: function(params) {
+                        var query = {
+                            search: params.term,
+                        }
+                        console.log('query - ', query);
+                        return query;
+                    }
+                }
+            })
+        });
+        // CODE TO SHOW THE LIST OF DROPDOWNS FROM SELECT 2 THROUGH AJAX - SHADE
+        $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.shade.select2').ready(function() {
+            $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.shade.select2').select2({
+                ajax: {
+                    url: "{{ route('get-shade-dropdown') }}",
+                    data: function(params) {
+                        var query = {
+                            search: params.term,
+                        }
+                        console.log('query - ', query);
+                        return query;
+                    }
+                }
+            })
+        });
 
         @if($status = Session::get('success'))
         swal({
