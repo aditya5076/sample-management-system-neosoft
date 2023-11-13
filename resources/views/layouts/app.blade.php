@@ -19,54 +19,6 @@
 
     <!-- Styles -->
     <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
-    <!-- @yield('styles') -->
-
-    <style>
-        .loader-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .loader {
-            border: 8px solid #f3f3f3;
-            border-top: 8px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Optionally hide the loader once the content is loaded */
-        .loader-wrapper.loaded {
-            display: none;
-        }
-    </style>
-    <script src="{{ asset('public/default/js/jquery.js') }}"></script>
-    <link href="{{ asset('public/default/font-awesome-css/webfonts/fa-solid-900.ttf') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('public/default/font-awesome-css/css/all.css') }}" rel="stylesheet" type="text/css" />
-
-
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/webfonts/fa-solid-900.ttf" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" /> -->
-
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
     <script>
         WebFont.load({
@@ -82,7 +34,8 @@
     <!--end::Page Vendors -->
     <link href="{{ asset('public/default/css/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/default/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/webfonts/fa-solid-900.ttf" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" />
     <!--end::Base Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('public/default/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/default/emoticons/stylesheet.css') }}">
@@ -109,6 +62,7 @@
         <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
             <i class="la la-arrow-up"></i>
         </div>
+        <script src="{{ asset('public/default/js/jquery.js') }}"></script>
         <script src="{{ asset('public/default/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('public/default/js/vendors.bundle.js') }}" type="text/javascript"></script>
         <script src="{{ asset('public/default/js/scripts.bundle.js') }}" type="text/javascript"></script>
@@ -125,9 +79,7 @@
         <script src="{{ asset('public/default/js/bootstrap-datetimepicker.js') }}" type="text/javascript"></script>
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <!-- <script src="{{ asset('public/default/js/dashboard.js') }}" type="text/javascript"></script> -->
-        <script src="{{ asset('public/default/js/select2.js') }}" type="text/javascript"></script>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-
+        <!-- <script src="{{ asset('public/default/js/select2.js') }}" type="text/javascript"></script> -->
         <script src="{{ asset('public/default/js/sweetalert.min.js') }}" type="text/javascript"></script>
         <script type="text/javascript" src="{{ asset('public/default/js/script.js') }}"></script>
         @yield('scripts')

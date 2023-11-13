@@ -189,8 +189,7 @@ class RequestListingController extends Controller
             $this->requests_array = $this->requests_array->where('emb_vendor', $this->search_parameters['emb_vendor_filter']);
         }
         // $this->requests_array->orderBy('requests.request_date', 'desc');
-        $this->requests_array = $this->requests_array->take(1000);
-        // dd($this->requests_array);
+        $this->requests_array = $this->requests_array->take(10000);
         return DataTables::of($this->requests_array)
             ->addColumn('checkbox', function ($item) {
                 if (!empty($item->location_id)) {
