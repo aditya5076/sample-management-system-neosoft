@@ -241,6 +241,8 @@
     $(() => {
         $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.quality.select2').ready(function() {
             $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.quality.select2').select2({
+                placeholder: "Please select a quality",
+                allowClear: true,
                 ajax: {
                     url: "{{ route('get-quality-dropdown') }}",
                     data: function(params) {
@@ -255,8 +257,11 @@
             })
         });
 
+        // CODE TO SHOW THE LIST OF DROPDOWNS FROM SELECT 2 THROUGH AJAX - DESIGN
         $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.design.select2').ready(function() {
             $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.design.select2').select2({
+                placeholder: "Please select a design-name",
+                allowClear: true,
                 ajax: {
                     url: "{{ route('get-design-dropdown') }}",
                     data: function(params) {
@@ -272,6 +277,8 @@
 
         $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.shade.select2').ready(function() {
             $('.js-example-basic-single.btn.btn-primary.dropdown-toggle.shade.select2').select2({
+                placeholder: "Please select a shade",
+                allowClear: true,
                 ajax: {
                     url: "{{ route('get-shade-dropdown') }}",
                     data: function(params) {
