@@ -110,16 +110,16 @@ class StocksListingController extends Controller
             );
 
         if (!empty($this->search_parameters['sku_id_filter'])) {
-            $this->stocks_array = $this->stocks_array->where('products_master.unique_sku_id', $this->search_parameters['sku_id_filter']);
+            $this->stocks_array = $this->stocks_array->where('products_master.products_master.unique_sku_id', $this->search_parameters['sku_id_filter']);
         }
         if (!empty($this->search_parameters['quality_filter'])) {
-            $this->stocks_array = $this->stocks_array->where('quality', $this->search_parameters['quality_filter']);
+            $this->stocks_array = $this->stocks_array->where('products_master.quality', $this->search_parameters['quality_filter']);
         }
         if (!empty($this->search_parameters['design_filter'])) {
-            $this->stocks_array = $this->stocks_array->where('design_name', $this->search_parameters['design_filter']);
+            $this->stocks_array = $this->stocks_array->where('products_master.design_name', $this->search_parameters['design_filter']);
         }
         if (!empty($this->search_parameters['shade_filter'])) {
-            $this->stocks_array = $this->stocks_array->where('shade', $this->search_parameters['shade_filter']);
+            $this->stocks_array = $this->stocks_array->where('products_master.shade', $this->search_parameters['shade_filter']);
         }
         // $this->stocks_array = $this->stocks_array->groupBy('products_master.unique_sku_id')->orderBy('requests.delivery_date', 'desc');
         return DataTables::of($this->stocks_array)
