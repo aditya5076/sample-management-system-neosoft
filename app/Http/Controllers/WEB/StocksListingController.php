@@ -109,8 +109,9 @@ class StocksListingController extends Controller
                 DB::raw('COALESCE(available_quantity, 0) as available_quantity')
             );
 
+
         if (!empty($this->search_parameters['sku_id_filter'])) {
-            $this->stocks_array = $this->stocks_array->where('products_master.products_master.unique_sku_id', $this->search_parameters['sku_id_filter']);
+            $this->stocks_array = $this->stocks_array->where('products_master.unique_sku_id', $this->search_parameters['sku_id_filter']);
         }
         if (!empty($this->search_parameters['quality_filter'])) {
             $this->stocks_array = $this->stocks_array->where('products_master.quality', $this->search_parameters['quality_filter']);
@@ -121,7 +122,7 @@ class StocksListingController extends Controller
         if (!empty($this->search_parameters['shade_filter'])) {
             $this->stocks_array = $this->stocks_array->where('products_master.shade', $this->search_parameters['shade_filter']);
         }
-        // $this->stocks_array = $this->stocks_array->groupBy('products_master.unique_sku_id')->orderBy('requests.delivery_date', 'desc');
+        $this->stocks_array = $this->stocks_array->groupBy('products_master.unique_sku_id')->orderBy('requests.delivery_date', 'desc');
         return DataTables::of($this->stocks_array)
             ->addColumn('checkbox', function ($item) {
                 return '<label style="text-align: center;" class="m-checkbox m-checkbox--focus"><input class="form-check-input" value="' . $item->id . '" type="checkbox" location-id="0" sku-id="' . $item->unique_sku_id . '" name="select_checkbox[]"><span></span></label>';

@@ -3,37 +3,36 @@
 namespace App\Exports;
 
 use App\Models\ProductMaster;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use DB;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class MSSQLDumps implements FromCollection, WithHeadings
+class ProductMasterMsSqlDump implements FromQuery, WithHeadings
 {
-    /**
-     * * This export is created for dumping tables from MSSQL based on unique-sku-ids.
-     * @return \Illuminate\Support\Collection
-     * @author Akash Puthanekar <akash.puthanekar@neosofttech.com>
-     */
+    use Exportable;
 
-    protected $from_date = null;
-    protected $to_date = null;
-    protected $query_array = [];
+    protected $from_date;
+    protected $to_date;
     private $report_headings = ["Request Number", "SKU ID", "Quality Name", "Design Name", "Shade Name", "EPI On Loom", "PPI On Loom", "EPI Finish", "PPI Finish", "GSM", "GLM", "Product Price", "Product Designer Name", "End Use", "Product Type", "Category", "Repeat Inch", "Repeat CM", "Finish Width", "Repeats Horizontal", "Repeats Vertical", "Color", "Design", "Product Creation Date", "Request Requirement Type", "Request Barcode", "Request Delivery Date", "Request Designer Name", "Request Sample Length", "Request Creation Date", "Print Design", "Print Colorway", "Print Repeat Inch", "Print Repeat Cm", "Print Category", "Print Type", "Print Cost", "Emb Design", "Emb Colorway", "Emb Repeat Inch", "Emb Repeat Cm", "Emb Stitch Type", "Emb vendor", "Emb Stitches", "Emb Applique Work", "Emb cost", "Emb Gsm", "Emb Category"];
 
-    /**
-     * @Initialization constructor
-     */
-    public function __construct($fromdate, $todate)
+    public function __construct($from_date, $to_date)
     {
-        $this->from_date = $fromdate;
-        $this->to_date = $todate;
-    } // end : construct
+        $this->from_date = $from_date;
+        $this->to_date = $to_date;
+    }
 
-    public function collection()
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    // public function collection()
+    // {
+    //     return collect($this->query_array);
+    // }
+
+    public function query()
     {
-        ini_set('memory_limit', -1);
-        ini_set('max_execution_time', 0);
-        $this->query_array = ProductMaster::leftJoin('requests', 'products_master.unique_sku_id', '=', 'requests.unique_sku_id')
+        return ProductMaster::leftJoin('requests', 'products_master.unique_sku_id', '=', 'requests.unique_sku_id')
             ->leftJoin('products_pricing', function ($join) {
                 $join->on('products_master.unique_sku_id', '=', 'products_pricing.unique_sku_id');
                 $join->where('products_pricing.is_latest', '=', 1);
@@ -90,22 +89,11 @@ class MSSQLDumps implements FromCollection, WithHeadings
             )
             ->when(!empty($this->from_date) && !empty($this->to_date), function ($query) {
                 return $query->whereBetween('requests.request_date', [$this->from_date . " 00:00:00", $this->to_date . " 23:59:59"]);
-            })->orderBy('requests.request_date', 'DESC')->chunk(200, function ($results) {
-                $this->query_array =  $results;
-            });
-
-        return $this->query_array;
-
-        // return $this->query_array = $this->query_array->orderBy('requests.request_date', 'DESC')->get();
+            })->orderBy('requests.request_date', 'DESC');
     }
 
-    /**
-     * This returns report headings only for this export.
-     * @return Array
-     * @author Akash Puthanekar <akash.puthanekar@neosofttech.com>
-     */
     public function headings(): array
     {
         return $this->report_headings;
-    } // end : headings
+    }
 }

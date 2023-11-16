@@ -45,7 +45,6 @@
     <link href="{{ asset('public/default/css/sweetalert.css') }}" rel="stylesheet">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
-    @yield('styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('public/default/css/custom-sms.css?version='.env('JS_CSS_VERSION')) }}">
     <link rel="shortcut icon" href="{{ asset('public/default/images/login_logo.png') }}" />
 </head>

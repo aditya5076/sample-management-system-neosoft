@@ -31,7 +31,9 @@ use App\Exports\ProductsWishlist;
 use App\Exports\OrdersDump;
 use App\Exports\ProductsOrders;
 use App\Exports\CustomersQuantitySKU;
+use App\Exports\ProductMasterMsSqlDump;
 use App\Exports\RequestDetailsDump;
+use App\Jobs\ExportProductsMasterTable;
 
 class ReportsMasterController extends Controller
 {
@@ -42,7 +44,7 @@ class ReportsMasterController extends Controller
      * @param Constant : Declaration.
      * @param Parameter : Declaration.
      * @author Akash Puthanekar <akash.puthanekar@neosofttech.com>
-    */
+     */
 
     const active_report = 1;
     const inactivate_report = 0;
@@ -73,87 +75,93 @@ class ReportsMasterController extends Controller
     ];
 
     /**
-    * @Initialization constructor
-    */
-    public function __construct(){
+     * @Initialization constructor
+     */
+    public function __construct()
+    {
         $this->date_bracket = Carbon::now();
         $this->today = Carbon::today()->toDateString();
         $this->role_master = Helper::getRoleMaster();
-        $this->rand_string = rand(10,1000);
+        $this->rand_string = rand(10, 1000);
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', -1);
     } // end : construct
 
     /**
-    * This function is used for exporting users dump into excel using exports collection.
-    * @return Excel
-    * @author Akash Puthanekar <akash.puthanekar@neosofttech.com>
-    */
+     * This function is used for exporting users dump into excel using exports collection.
+     * @return Excel
+     * @author Akash Puthanekar <akash.puthanekar@neosofttech.com>
+     */
     public function dump_users()
     {
-        return Excel::download(new UsersExport, 'users_'.$this->today.'_'.$this->rand_string.'.xlsx');
+        return Excel::download(new UsersExport, 'users_' . $this->today . '_' . $this->rand_string . '.xlsx');
     } // end : dump_users
 
     /**
-    * This function is used for displaying dynamic report names on landing page of reports module.
-    * @return View
-    * @author Akash Puthanekar <akash.puthanekar@neosofttech.com>
-    */
+     * This function is used for displaying dynamic report names on landing page of reports module.
+     * @return View
+     * @author Akash Puthanekar <akash.puthanekar@neosofttech.com>
+     */
     public function show_reports()
     {
-        $getReports = ReportsMaster::where('is_active',self::active_report)->where('report_type',$this->report_types['web_report'])->get()->toArray();
-        $getIpadReports = ReportsMaster::where('is_active',self::active_report)->where('report_type',$this->report_types['ipad_report'])->get()->toArray();
-        return view('Reports.show-reports',compact('getReports','getIpadReports'));
+        $getReports = ReportsMaster::where('is_active', self::active_report)->where('report_type', $this->report_types['web_report'])->get()->toArray();
+        $getIpadReports = ReportsMaster::where('is_active', self::active_report)->where('report_type', $this->report_types['ipad_report'])->get()->toArray();
+        return view('Reports.show-reports', compact('getReports', 'getIpadReports'));
     } // end : dump_users
 
     /**
-    * This function is used for generating reports. It is used as a generic function for all reports generation.
-    * @param Request : $request object containing filters(If any), Unique report ID.
-    * @return Excel
-    * @author Akash Puthanekar <akash.puthanekar@neosofttech.com>
-    */
+     * This function is used for generating reports. It is used as a generic function for all reports generation.
+     * @param Request : $request object containing filters(If any), Unique report ID.
+     * @return Excel
+     * @author Akash Puthanekar <akash.puthanekar@neosofttech.com>
+     */
     public function generic_reports_generation(Request $request)
     {
         try {
             switch ($request->hidden_report_id) {
                 case self::sample_efficiency:
-                    return Excel::download(new SampleEfficiency($request->from_date,$request->to_date), 'sample_efficiency_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new SampleEfficiency($request->from_date, $request->to_date), 'sample_efficiency_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
                 case self::stock:
-                    return Excel::download(new Stocks($request->quality,$request->design,$request->shade), 'stock_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new Stocks($request->quality, $request->design, $request->shade), 'stock_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
                 case self::issuance:
-                    return Excel::download(new Issuance($request->from_date,$request->to_date), 'issuance_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new Issuance($request->from_date, $request->to_date), 'issuance_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
                 case self::request_product:
-                    return Excel::download(new MSSQLDumps($request->from_date,$request->to_date), 'products_requests_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    // return Excel::download(new MSSQLDumps($request->from_date,$request->to_date), 'products_requests_'.$this->today.'_'.$this->rand_string.'.xlsx');
+
+                    // dispatch(new ExportProductsMasterTable($request->from_date, $request->to_date));
+                    dispatch(new ExportProductsMasterTable($request->from_date, $request->to_date))->delay(now()->addSeconds(10));
+
+                    return redirect()->back()->with('success', 'Export has been queued.');
+                    break;
                 case self::request_details:
-                    return Excel::download(new RequestDetailsDump($request->quality,$request->design,$request->shade), 'request_details_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new RequestDetailsDump($request->quality, $request->design, $request->shade), 'request_details_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
                 case self::customer_master:
-                    return Excel::download(new CustomersDump($request->from_date,$request->to_date), 'customers_master_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new CustomersDump($request->from_date, $request->to_date), 'customers_master_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
                 case self::order_master:
-                    return Excel::download(new OrdersDump($request->from_date,$request->to_date), 'orders_master_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new OrdersDump($request->from_date, $request->to_date), 'orders_master_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
                 case self::customers_wishlist:
-                    return Excel::download(new CustomersWishlist($request->from_date,$request->to_date), 'customers_wishlist_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new CustomersWishlist($request->from_date, $request->to_date), 'customers_wishlist_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
                 case self::products_wishlist:
-                    return Excel::download(new ProductsWishlist($request->from_date,$request->to_date), 'products_wishlist_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new ProductsWishlist($request->from_date, $request->to_date), 'products_wishlist_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
                 case self::products_orders:
-                    return Excel::download(new ProductsOrders($request->from_date,$request->to_date), 'products_orders_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new ProductsOrders($request->from_date, $request->to_date), 'products_orders_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
                 case self::customers_quantity_sku:
-                    return Excel::download(new CustomersQuantitySKU($request->from_date,$request->to_date), 'customers_quantity_sku_'.$this->today.'_'.$this->rand_string.'.xlsx');
-                break;
+                    return Excel::download(new CustomersQuantitySKU($request->from_date, $request->to_date), 'customers_quantity_sku_' . $this->today . '_' . $this->rand_string . '.xlsx');
+                    break;
             }
         } catch (\Exception $e) {
             $this->code = $this->static_return['error_code'];
             $this->status = $this->static_return['error'];
-            return redirect()->route('show_reports')->with($this->code,$this->status);
+            return redirect()->route('show_reports')->with($this->code, $this->status);
         }
     } // end : generic_reports_generation
 }
