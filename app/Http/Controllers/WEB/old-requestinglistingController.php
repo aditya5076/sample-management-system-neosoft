@@ -192,13 +192,11 @@ class RequestListingController extends Controller
         $this->requests_array = $this->requests_array->latest();
         return DataTables::of($this->requests_array)
             ->addColumn('checkbox', function ($item) {
-                // if (!empty($item->location_id)) {
-                //     return '<label style="text-align: center;" class="m-checkbox m-checkbox--focus"><input class="form-check-input" value="' . $item->id . '" type="checkbox" location-id=' . $item->location_id . ' sku-id="' . $item->unique_sku_id . '" name="select_checkbox[]"><span></span></label>'
-                // } else {
-                //     return '<label style="text-align: center;" class="m-checkbox m-checkbox--focus"><input class="form-check-input" value="' . $item->id . '" type="checkbox" location-id="0" sku-id="' . $item->unique_sku_id . '" name="select_checkbox[]"><span></span></label>';
-                // }
-
-                return json_encode($item, true);
+                if (!empty($item->location_id)) {
+                    return '<label style="text-align: center;" class="m-checkbox m-checkbox--focus"><input class="form-check-input" value="' . $item->id . '" type="checkbox" location-id=' . $item->location_id . ' sku-id="' . $item->unique_sku_id . '" name="select_checkbox[]"><span></span></label>';
+                } else {
+                    return '<label style="text-align: center;" class="m-checkbox m-checkbox--focus"><input class="form-check-input" value="' . $item->id . '" type="checkbox" location-id="0" sku-id="' . $item->unique_sku_id . '" name="select_checkbox[]"><span></span></label>';
+                }
             })
             ->addColumn('thumbnail', function ($item) {
                 $item = json_decode(json_encode($item), true);

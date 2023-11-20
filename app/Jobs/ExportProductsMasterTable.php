@@ -53,7 +53,7 @@ class ExportProductsMasterTable implements ShouldQueue
         // return $this->query_array;
 
         // return (new ProductMasterMsSqlDump($this->query_array))->store('exports/products.xlsx', 'public');
-        $path = Excel::download($this->export, 'text.xlsx');
-        echo $path;
+        return $path = Excel::store($this->export, 'check.xlsx');
+        // echo $path;
     }
 }
